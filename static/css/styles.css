@@ -1,0 +1,15 @@
+main {
+    /*background-image: url("https://www.codewithrandom.com/wp-content/uploads/2022/11/15-Bootstrap-login-forms38.png");*/
+    /*background-size: cover;*/
+    min-height: 110vh;
+}
+
+header {
+    height: 9vh;
+}
+
+div.line {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+}
