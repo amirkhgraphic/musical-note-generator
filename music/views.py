@@ -27,9 +27,11 @@ class LabCreateView(CreateView):
     template_name = 'music/lab_form.html'
 
     def form_valid(self, form):
-        lab = form.save(commit=False)
-        lab.user = self.request.user
-        lab.save()
+        lab = form.save()
+
+        if self.request.user.is_authenticated:
+            lab.user = self.request.user
+            lab.save()
 
         directory = self.create_unique_directory(lab.id)
 

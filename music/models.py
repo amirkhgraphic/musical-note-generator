@@ -6,7 +6,7 @@ User = get_user_model()
 
 
 class Lab(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='labs')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='labs', null=True, blank=True)
     target_sequence = models.FileField(upload_to='note/target/', blank=True)
     population_size = models.IntegerField(
         validators=[
