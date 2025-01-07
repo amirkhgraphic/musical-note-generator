@@ -13,3 +13,24 @@ div.line {
     height: 3px;
     background-color: white;
 }
+
+.btn-generations {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.generation-title {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .btn-generations {
+        width: auto;
+    }
+
+    .generation-title {
+        width: 25%;
+    }
+}

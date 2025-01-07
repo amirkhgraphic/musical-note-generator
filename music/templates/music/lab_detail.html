@@ -9,26 +9,39 @@
 
     <div class="mb-4">
         <div class="d-flex align-items-center">
-            <button class="btn btn-primary w-100" onclick="playMidi('{{ lab.target_sequence.url }}')">Target Sequence</button>
+            <button class="btn btn-primary w-100 me-2" onclick="playMidi('{{ lab.target_sequence.url }}')">Target Sequence</button>
+
+            <a href="{{ lab.target_sequence.url }}" download class="btn btn-outline-primary" title="Download">
+                <i class="bi bi-download"></i>
+            </a>
         </div>
     </div>
 
+
     <div class="mb-4">
         <div class="d-flex align-items-center">
-            <button class="btn btn-success w-100" onclick="playMidi('{{ lab.best_note.url }}')">Best Sequence</button>
+            <button class="btn btn-success w-100 me-2" onclick="playMidi('{{ lab.best_note.url }}')">Best Sequence</button>
+
+            <a href="{{ lab.best_note.url }}" download class="btn btn-outline-success" title="Download">
+                <i class="bi bi-download"></i>
+            </a>
         </div>
     </div>
 
     <h3>Generations:</h3>
     <ul class="list-group">
         {% for generation in lab.generations.all %}
-        <li class="list-group-item d-flex justify-content-between">
-            <div class="d-flex flex-column w-25">
+        <li class="list-group-item d-flex flex-column flex-md-row justify-content-between mb-3">
+            <div class="d-flex flex-row flex-md-column generation-title">
                 <strong>Generation {{ generation.number }}</strong>
                 <span class="text-muted">(Fitness: {{ generation.best_fitness }})</span>
             </div>
-            <div class="w-100">
-                <button class="btn btn-secondary btn-sm w-100 h-100" onclick="playMidi('{{ generation.best_note.url }}')">Play</button>
+            <div class="d-flex align-items-center w-100 flex-column flex-md-row">
+                <button class="btn btn-secondary w-100 me-2" onclick="playMidi('{{ generation.best_note.url }}')">Play</button>
+
+                <a href="{{ generation.best_note.url }}" download class="btn btn-outline-secondary btn-generations" title="Download">
+                    <i class="bi bi-download"></i>
+                </a>
             </div>
         </li>
         {% endfor %}
