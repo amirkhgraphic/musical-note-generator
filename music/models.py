@@ -8,6 +8,7 @@ User = get_user_model()
 class Lab(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='labs', null=True, blank=True)
     target_sequence = models.FileField(upload_to='note/target/', blank=True)
+    target_sequence_list = models.JSONField(default=list, blank=True)
     population_size = models.IntegerField(
         validators=[
             MinValueValidator(10),
@@ -25,12 +26,14 @@ class Lab(models.Model):
         ],
     )
     best_note = models.FileField(upload_to='note/')
+    best_sequence_list = models.JSONField(default=list, blank=True)
     best_fitness = models.FloatField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Generation(models.Model):
     best_note = models.FileField(upload_to='note/')
+    best_sequence = models.JSONField(default=list, blank=True)
     lab = models.ForeignKey(Lab, on_delete=models.CASCADE, related_name='generations')
     number = models.IntegerField(
         validators=[

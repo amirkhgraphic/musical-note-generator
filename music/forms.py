@@ -9,21 +9,27 @@ from .models import Lab
 
 
 class LabForm(forms.ModelForm):
-    target_sequence_list = forms.CharField(
-        widget=forms.Textarea(attrs={
-            'placeholder': 'Enter a comma-separated list of MIDI notes (e.g., 60, 62, 64, 65, 67)',
-            'class': 'form-control',
-            'rows': 3,
-        }),
-        required=False,
-        help_text='You can upload a MIDI file or enter a sequence of MIDI notes.',
-    )
+    def clean_target_sequence_list(self):
+        target_sequence_list = self.cleaned_data['target_sequence_list']
+        try:
+            return list(map(lambda x: int(x['value']), target_sequence_list)) or []
+
+        except (KeyError, ValueError):
+            raise ValidationError(
+                "Please provide a valid list of notes in comma seperated format. (e.g. 61, 52, 63, 62)"
+            )
 
     class Meta:
         model = Lab
         fields = ['target_sequence', 'target_sequence_list', 'population_size', 'num_generations', 'mutation_rate']
         widgets = {
             'mutation_rate': forms.NumberInput(attrs={'step': '0.01'}),
+            'target_sequence_list': forms.Textarea(attrs={
+                'placeholder': 'Enter a comma-separated list of MIDI notes (e.g., 60, 62, 64, 65, 67)',
+                'class': 'form-control tagify-input',
+                'rows': 3,
+                'data-tagify': 'true',
+            }),
         }
 
     def clean(self):
@@ -36,7 +42,7 @@ class LabForm(forms.ModelForm):
 
         if target_sequence_list:
             try:
-                notes = [int(n.strip()) for n in target_sequence_list.split(',')]
+                notes = target_sequence_list
                 if any(note < 0 or note > 127 for note in notes):
                     raise ValueError("MIDI notes must be between 0 and 127.")
 

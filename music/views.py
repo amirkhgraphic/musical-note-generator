@@ -45,6 +45,7 @@ class LabCreateView(CreateView):
 
         lab.best_fitness = best_fitness
         lab.best_note.name = os.path.join(directory[6:], 'final_best.mid')
+        lab.best_sequence_list = best_sequence
         lab.save()
 
         for gen_number, gen_data in generation_data.items():
@@ -53,6 +54,7 @@ class LabCreateView(CreateView):
                 number=gen_number,
                 best_fitness=gen_data['fitness'],
                 best_note=gen_data['file_path'][6:],
+                best_sequence=gen_data['best_sequence'],
             )
 
         return super().form_valid(form)
@@ -82,6 +84,7 @@ class LabCreateView(CreateView):
             generation_data[generation + 1] = {
                 'fitness': best_fitness,
                 'file_path': file_path,
+                'best_sequence': best_sequence,
             }
 
             next_generation = []
