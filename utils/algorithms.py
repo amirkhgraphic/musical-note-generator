@@ -7,8 +7,9 @@ def fitness(sequence, target):
     return sum(abs(a - b) for a, b in zip(sequence, target))
 
 def roulette_wheel_selection(population, fitnesses):
-    total_fitness = sum(fitnesses)
-    probabilities = [f / total_fitness for f in fitnesses]
+    max_fitness = max(fitnesses)
+    inverted_fitnesses = [max_fitness - f for f in fitnesses]
+    probabilities = [f / sum(inverted_fitnesses) for f in inverted_fitnesses] if sum(inverted_fitnesses) else [1 / len(population)] * len(population)
     return random.choices(population, weights=probabilities, k=2)
 
 def one_point_crossover(parent1, parent2):
