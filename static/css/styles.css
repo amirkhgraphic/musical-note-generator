@@ -20,17 +20,16 @@ div.line {
 }
 
 .generation-title {
-    width: 100%;
     justify-content: center;
-    margin-bottom: 1rem;
+}
+
+.gens-wrapper p {
+    min-width: 3rem;
+    max-width: 3rem;
 }
 
 @media (min-width: 768px) {
     .btn-generations {
         width: auto;
-    }
-
-    .generation-title {
-        width: 25%;
     }
 }

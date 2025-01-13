@@ -18,9 +18,9 @@
         </div>
         <details class="border rounded py-2 px-3 bg-light mb-3">
           <summary>Target Sequence Notes</summary>
-          <div class="d-flex gap-1 p-2 mt-2 overflow-auto">
+          <div class="d-flex gap-1 p-2 mt-2 overflow-auto gens-wrapper">
             {% for num in lab.target_sequence_list %}
-              <p class="small bg-primary text-white rounded py-1 m-0 text-center" style="width:3rem;">
+              <p class="small bg-primary text-white rounded py-1 m-0 text-center">
                 {{ num }}
               </p>
             {% endfor %}
@@ -39,14 +39,14 @@
         </div>
         <details class="border rounded py-2 px-3 bg-light mb-3">
           <summary>Best Sequence Notes</summary>
-          <div class="d-flex gap-1 p-2 mt-2 overflow-auto">
+          <div class="d-flex gap-1 p-2 mt-2 overflow-auto gens-wrapper">
               {% for target, note in lab.target_sequence_list|zipper:lab.best_sequence_list %}
                   {% if target == note %}
-                  <p class="small bg-success text-white rounded py-1 m-0 text-center" style="width:3rem;">
+                  <p class="small bg-success text-white rounded py-1 m-0 text-center">
                       {{ note }}
                   </p>
                   {% else %}
-                  <p class="small bg-danger text-white rounded py-1 m-0 text-center" style="width:3rem;">
+                  <p class="small bg-danger text-white rounded py-1 m-0 text-center">
                       {{ note }}
                   </p>
                   {% endif %}
@@ -59,19 +59,19 @@
     <ul class="list-group">
         {% for generation in lab.generations.all %}
         <li class="list-group-item d-flex flex-column flex-md-row justify-content-between mb-3">
-            <div class="d-flex flex-row flex-md-column generation-title gap-1">
+            <div class="col-12 col-md-2 col-lg-2 d-flex flex-row flex-md-column generation-title gap-1">
                 <strong>Generation {{ generation.number }}</strong>
                 <span class="text-muted">(Fitness: {{ generation.best_fitness }})</span>
             </div>
-            <div class="d-flex align-items-center w-100 flex-column flex-md-row gap-2">
-                <div class="d-flex gap-1 w-100 p-2 mt-2 overflow-auto">
+            <div class="col-12 col-lg-10 col-md-10 d-flex align-items-center flex-column flex-md-row justify-content-between">
+                <div class="col-12 col-md-8 col-lg-9 d-flex gap-1 p-2 mt-2 overflow-auto gens-wrapper">
                     {% for target, note in lab.target_sequence_list|zipper:generation.best_sequence %}
                         {% if target == note %}
-                        <p class="small bg-secondary text-white rounded py-1 m-0 text-center" style="width:3rem;">
+                        <p class="small bg-secondary text-white rounded py-1 m-0 text-center">
                             {{ note }}
                         </p>
                         {% else %}
-                        <p class="small bg-danger text-white rounded py-1 m-0 text-center" style="width:3rem;">
+                        <p class="small bg-danger text-white rounded py-1 m-0 text-center">
                             {{ note }}
                         </p>
                         {% endif %}
@@ -79,9 +79,9 @@
                 </div>
 
                 <div class="col-12 col-md-3 col-lg-2 d-flex gap-1">
-                    <button class="btn btn-secondary w-100 me-2" onclick="playMidi('{{ generation.best_note.url }}')">Play</button>
+                    <button class="btn btn-secondary w-100" onclick="playMidi('{{ generation.best_note.url }}')">Play</button>
 
-                    <a href="{{ generation.best_note.url }}" download class="btn btn-outline-secondary btn-generations" title="Download">
+                    <a href="{{ generation.best_note.url }}" download class="btn btn-outline-secondary btn-generations m-0" title="Download">
                         <i class="bi bi-download"></i>
                     </a>
                 </div>
