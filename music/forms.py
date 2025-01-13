@@ -12,7 +12,7 @@ class LabForm(forms.ModelForm):
     def clean_target_sequence_list(self):
         target_sequence_list = self.cleaned_data['target_sequence_list']
         try:
-            return list(map(lambda x: int(x['value']), target_sequence_list)) or []
+            return list(map(lambda x: int(x['value']), target_sequence_list)) if target_sequence_list else []
 
         except (KeyError, ValueError):
             raise ValidationError(

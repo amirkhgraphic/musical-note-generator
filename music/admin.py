@@ -14,7 +14,7 @@ class LabAdmin(admin.ModelAdmin):
             'fields': ('user', 'population_size', 'num_generations', 'mutation_rate'),
         }),
         ('Target and Results', {
-            'fields': ('target_sequence', 'best_note', 'best_fitness'),
+            'fields': ('target_sequence', 'target_sequence_list', 'best_note', 'best_fitness'),
         }),
         ('Timestamps', {
             'fields': ('created_at',),
@@ -25,7 +25,7 @@ class LabAdmin(admin.ModelAdmin):
 
 @admin.register(Generation)
 class GenerationAdmin(admin.ModelAdmin):
-    list_display = ('lab', 'number', 'best_fitness', 'created_at')
+    list_display = ('lab', 'number', 'best_fitness', 'best_sequence', 'created_at')
     list_filter = ('lab', 'created_at')
     search_fields = ('lab__user__username', 'lab__id')
     readonly_fields = ('created_at',)

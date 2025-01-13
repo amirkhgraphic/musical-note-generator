@@ -35,7 +35,7 @@ class LabCreateView(CreateView):
 
         directory = self.create_unique_directory(lab.id)
 
-        best_sequence, best_fitness, generation_data = self.run_genetic_algorithm(
+        best_sequence, best_fitness, generation_data, target_sequence = self.run_genetic_algorithm(
             lab.population_size,
             lab.target_sequence.path,
             lab.num_generations,
@@ -46,6 +46,7 @@ class LabCreateView(CreateView):
         lab.best_fitness = best_fitness
         lab.best_note.name = os.path.join(directory[6:], 'final_best.mid')
         lab.best_sequence_list = best_sequence
+        lab.target_sequence_list = target_sequence
         lab.save()
 
         for gen_number, gen_data in generation_data.items():
@@ -103,7 +104,7 @@ class LabCreateView(CreateView):
         final_file_path = os.path.join(directory, 'final_best.mid')
         save_midi_file(best_sequence, final_file_path)
 
-        return best_sequence, best_fitness, generation_data
+        return best_sequence, best_fitness, generation_data, target_sequence
 
     def get_success_url(self):
         return reverse_lazy('music:detail', kwargs={'pk': self.object.pk})
