@@ -14,13 +14,13 @@ def roulette_wheel_selection(population, fitnesses):
 
 def one_point_crossover(parent1, parent2):
     point = random.randint(1, len(parent1) - 1)
-    child = parent1[:point] + parent2[point:]
+    child = parent1[:point] + [x for x in parent2 if x not in parent1[:point]]
     return child
 
 def two_point_crossover(parent1, parent2):
     point1 = random.randint(0, len(parent1) - 2)
     point2 = random.randint(point1 + 1, len(parent1) - 1)
-    child = parent1[:point1] + parent2[point1:point2] + parent1[point2:]
+    child = parent1[:point1] + [x for x in parent2 if x not in parent1[:point1]] + parent1[point2:]
     return child
 
 def mutate(sequence, mutation_rate):

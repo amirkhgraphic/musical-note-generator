@@ -5,8 +5,18 @@
 {% block content %}
     <h1 class="text-center mt-4">Musical Note Sequence Generator</h1>
     {% if user.first_name and user.last_name %}
-        <h2 class="text-center">Welcome {{ user.first_name }} {{ user.last_name }}</h2>
+        <h2 class="text-center">Welcome {{ user.first_name }} {{ user.last_name }}!</h2>
+        <p class="text-center">You are now logged in :)</p>
     {% else %}
-        <h2 class="text-center">Welcome {{ user }}</h2>
+        <h2 class="text-center">Welcome!</h2>
+        <p class="text-center">
+            You can
+            <a href="{% url 'users:login' %}">log-in</a>
+            or
+            <a href="{% url 'users:signup' %}">sign-up</a>
+            from here to save your activity :)
+        </p>
     {% endif %}
+
+    <a href="{% url 'music:create' %}" class="btn btn-primary w-100">Generate a new music note!</a>
 {% endblock %}
