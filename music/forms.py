@@ -21,7 +21,14 @@ class LabForm(forms.ModelForm):
 
     class Meta:
         model = Lab
-        fields = ['target_sequence', 'target_sequence_list', 'population_size', 'num_generations', 'mutation_rate']
+        fields = [
+            'target_sequence',
+            'target_sequence_list',
+            'population_size',
+            'num_generations',
+            'crossover_type',
+            'mutation_rate',
+        ]
         widgets = {
             'mutation_rate': forms.NumberInput(attrs={'step': '0.01'}),
             'target_sequence_list': forms.Textarea(attrs={

@@ -13,6 +13,7 @@
                     <tr>
                         <th>#</th>
                         <th>Target Sequence</th>
+                        <th>Crossover</th>
                         <th>Best Fitness</th>
                         <th>Created At</th>
                         <th>Actions</th>
@@ -25,6 +26,7 @@
                             <td>
                                 <a href="{{ lab.target_sequence.url }}" target="_blank">Download</a>
                             </td>
+                            <td>{{ lab.get_crossover_type_display }}</td>
                             <td>{{ lab.best_fitness }}</td>
                             <td>{{ lab.created_at|date:"Y-m-d H:i" }}</td>
                             <td>

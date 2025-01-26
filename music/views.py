@@ -15,9 +15,8 @@ from utils.algorithms import (
     fitness,
     initialize_population,
     mutate,
-    one_point_crossover,
-    two_point_crossover,
-    roulette_wheel_selection
+    get_crossover,
+    roulette_wheel_selection,
 )
 
 
@@ -41,6 +40,7 @@ class LabCreateView(CreateView):
             lab.num_generations,
             lab.mutation_rate,
             directory,
+            lab.crossover_type,
         )
 
         lab.best_fitness = best_fitness
@@ -66,8 +66,8 @@ class LabCreateView(CreateView):
         os.makedirs(dir_name, exist_ok=True)
         return dir_name
 
-    def run_genetic_algorithm(self, population_size, target_sequence_path, num_generations, mutation_rate, directory):
-        """Runs the genetic algorithm and saves results to disk."""
+    def run_genetic_algorithm(self, population_size, target_sequence_path, num_generations, mutation_rate, directory, crossover_type):
+        """Runs the genetic algorithm and saves results to disk & db."""
         target_sequence = parse_midi_file(target_sequence_path)
 
         population = initialize_population(population_size, target_sequence)
@@ -91,8 +91,8 @@ class LabCreateView(CreateView):
             next_generation = []
             for _ in range(population_size // 2):
                 parent1, parent2 = roulette_wheel_selection(population, fitnesses)
-                child1 = one_point_crossover(parent1, parent2)
-                child2 = two_point_crossover(parent1, parent2)
+                crossover = get_crossover(crossover_type)
+                child1, child2 = crossover(parent1, parent2)
                 next_generation.append(mutate(child1, mutation_rate))
                 next_generation.append(mutate(child2, mutation_rate))
 

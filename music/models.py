@@ -6,9 +6,16 @@ User = get_user_model()
 
 
 class Lab(models.Model):
+    class CrossoverTypeChoices(models.TextChoices):
+        ONE_POINT = "O", "One Point Crossover"
+        TWO_POINT = "1", "Two Point Crossover"
+        ORDER_ONE = "2", "Order 1 Crossover"
+        PARTIALLY_MAPPED = "3", "Partially Mapped Crossover"
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='labs', null=True, blank=True)
     target_sequence = models.FileField(upload_to='note/target/', blank=True)
     target_sequence_list = models.JSONField(default=list, blank=True)
+    crossover_type = models.CharField(max_length=100, choices=CrossoverTypeChoices.choices, null=True)
     population_size = models.IntegerField(
         validators=[
             MinValueValidator(10),

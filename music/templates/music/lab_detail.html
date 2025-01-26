@@ -5,7 +5,25 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2 class="text-center">Lab: {{ lab.id }}</h2>
+    <h2 class="text-center">Lab {{ lab.id }}</h2>
+
+    <div class="card my-4 shadow-sm">
+        <div class="card-header bg-secondary text-white">
+            <h4 class="card-title mb-0">Details</h4>
+        </div>
+        <div class="card-body">
+            <p class="mb-2">
+                <strong>Crossover:</strong> {{ lab.get_crossover_type_display }}
+            </p>
+            <p class="mb-2">
+                <strong>Mutation rate:</strong> {{ lab.mutation_rate|percent_view }}
+            </p>
+            <p class="mb-0">
+                <strong>Population size:</strong> {{ lab.population_size }}
+            </p>
+        </div>
+    </div>
+
     <hr />
 
     <div class="mb-4">
